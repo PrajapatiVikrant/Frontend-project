@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #container {
+            display: grid;
+            grid-template-columns: repeat(18, 1fr);
+            ;
+            grid-template-rows: repeat(18, 1fr);
+            height: 450px;
+            width: 450px;
+            border: 2px solid black;
+        }
+
+        .snakehead {
+            background-color: red;
+            border: 2px solid black;
+           
+        }
+        .snakebody{
+            background-color: black;
+            border: 2px solid red;
+        }
+        .food{
+           background-image: url('snake.jpg');
+           background-size: contain;
+           background-repeat: no-repeat;
+           
+        }
+        .scorectn{
+            display: flex;
+          
+            font-size: 20px;
+            background-color: blue;
+            color: aliceblue;
+            margin: 20px;
+            padding: 6px;
+        }
+    </style>
+</head>
+
+<body>
+    <center>
+       
+        <h1>SNAKE GAME</h1>
+        <button class="scorectn">Score: <div id="score">0</div></button>
+        <div id="container">
+            
+        </div>
+    </center>
+
+    <script>
+        let container = document.getElementById('container');
+        let foodsound = new Audio('eatsound.mp3');
+        let movesound = new Audio('movesound.wav')
+         let gameover = new Audio('gameover.mp3');
+         let food = 9;
+         let s = 0;
+        
+        let snake = [
+            { x: 15, y: 15 },
+          
+
+        ]
+        let direction = {
+            x: 0,
+            y: 0
+        }
+
+      let game =   setInterval(()=>{
+            //moving snake
+         
+            for (let i = snake.length - 1; i > 0; i--) {
+                snake[i] = { ...snake[i - 1] };
+            }
+            snake[0].x += direction.x;
+            snake[0].y += direction.y;
+
+
+            container.innerHTML = "";
+
+           
+
+
+            //display snake
+            snake.map((elem, ind) => {
+               
+                let snakeElement = document.createElement('div');
+                if(ind === 0){
+                    snakeElement.classList.add('snakehead');
+                }else{
+                    snakeElement.classList.add('snakebody');
+                }
+                
+                snakeElement.style.gridColumnStart = elem.y;
+                snakeElement.style.gridRowStart = elem.x;
+                container.append(snakeElement);
+            })
+
+
+             //display food 
+             let foodelement = document.createElement('div');
+            foodelement.classList.add('food');
+            foodelement.style.gridColumnStart = food;
+            foodelement.style.gridRowStart = food;
+            container.append(foodelement)
+            
+
+           
+          if(snake[0].x === food && snake[0].y === food){
+            let r =   Math.floor(Math.random()*17)+2;
+           
+            food = r;
+           snake.push({x:r,y:r})
+           document.getElementById('score').innerHTML = ++s;
+           foodsound.play();
+          }
+          if(snake[0].x < 0 || snake[0].x === 19||snake[0].y === 0 || snake[0].y > 18){
+            clearInterval(game);
+            container.style.display = "block";
+            gameover.play();
+            container.innerHTML = "<h1>Game Over</h1>";
+          }
+
+
+
+
+        }, 100);
+        window.addEventListener('keydown', e => {
+            switch (e.key) {
+                case 'ArrowUp':
+                movesound.play();
+                    direction.x = -1;
+                    direction.y = 0;
+                    break;
+                case 'ArrowDown':
+                movesound.play();
+                    direction.x = 1;
+                    direction.y = 0;
+                    break;
+                case 'ArrowRight':
+                movesound.play();
+                    direction.x = 0;
+                    direction.y = 1;
+                    break;
+                case 'ArrowLeft':
+                movesound.play();
+                    direction.x = 0;
+                    direction.y = -1;
+                    break;
+                default:
+                    break;
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>
