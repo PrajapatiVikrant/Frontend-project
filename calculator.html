@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="cal.css">
+    <title>Calculator</title>
+   
+</head>
+<body>
+    <center><div class="calculator">
+        <h1>My Calculator</h1>
+        <div class="calculation">
+            <input type="text" id="operator8" class="ar">
+            <input type="text" id="area8" class="ar">
+            <input type="text" id="operator7" class="ar">
+            <input type="text" id="area7" class="ar">
+            <input type="text" id="operator6" class="ar">
+        <input type="text" id="area6" class="ar">
+        <input type="text" id="operator5" class="ar">
+        <input type="text" id="area5" class="ar">
+        <input type="text" id="operator4" class="ar">
+        <input type="text" id="area4" class="ar">
+        <input type="text" id="operator3" class="ar">
+        <input type="text" id="area3" class="ar"">
+        
+        <input type="text" id="operator2" class="ar">
+        <input type="text" id="area2" class="ar">
+        
+        <input type="text" id="operator1" class="ar">
+        <input type="text" id="area1" class="ar">
+        
+        <input type="text" id="total" value="0" class="result">
+        
+    
+        </div>
+       
+        
+        
+       <div class="container">
+           <input type="submit" id="dot" value="." class="btn">
+           <button onclick="allclear()" class="btn">C</button>
+           <input type="submit" id="reminder" value="%" class="btn">
+           <input type="submit" id="divide" value="/" class="btn">
+           <input type="submit" id="btn5" value="1" class="btn">
+           <input type="submit" id="btn6" value="2" class="btn">
+           <input type="submit" id="btn7" value="3" class="btn">
+           <input type="submit" id="multiply" value="*" class="btn">
+           <input type="submit" id="btn9" value="4" class="btn">
+           <input type="submit" id="btn10" value="5" class="btn">
+           <input type="submit" id="btn11" value="6" class = "btn">
+           <input type="submit" id="subtract" value="-" class="btn">
+           <input type="submit" id="btn13" value="7" class="btn">
+           <input type="submit" id="btn14" value="8" class="btn">
+           <input type="submit" id="btn15" value="9" class="btn">
+           <input type="submit" id="add" value="+" class="btn">
+           <input type="submit" id="btn16" value="0" class="btn">
+          
+       </div>
+
+    </div></center>
+   
+   <script>
+    var c = 2;
+    var result = 0;
+    var n;
+    var array = new Array();
+    var operator = new Array();
+    // for input value
+    array[1] = document.getElementById('area1');
+    array[2] = document.getElementById('area2');
+    array[3] = document.getElementById('area3');
+    array[4] = document.getElementById('area4');
+    array[5] = document.getElementById('area5');
+    array[6] = document.getElementById('area6');
+    array[7] = document.getElementById('area7');
+    array[8] = document.getElementById('area8');
+  //for operator value
+    operator[1] = document.getElementById('operator1');
+    operator[2] = document.getElementById('operator2');
+    operator[3] = document.getElementById('operator3');
+    operator[4] = document.getElementById('operator4');
+    operator[5] = document.getElementById('operator5');
+    operator[6] = document.getElementById('operator6');
+    operator[7] = document.getElementById('operator7');
+    operator[8] = document.getElementById('operator8');
+
+    //for clrear
+    function allclear(){
+    array[1].value = "";
+    array[2].value = "";
+    array[3].value = "";
+    array[4].value = "";
+    array[5].value = "";
+    array[6].value = "";
+    array[7].value = "";
+    array[8].value = "";
+    operator[1].value = "";
+    operator[2].value = "";
+    operator[3].value = "";
+    operator[4].value = "";
+    operator[5].value = "";
+    operator[6].value = "";
+    operator[7].value = "";
+    operator[8].value = "";
+    c=2;
+    document.getElementById('total').value = "0";
+    result = 0;
+        
+    }
+    
+
+   
+    function calculate(v,oper){
+        
+        n = +array[1].value;
+        switch(oper){
+            case '+':
+            result += n;
+            break;
+            case '-':
+            result -= n;
+            break;
+            case '*':
+            if(c==2){
+            result = 1;
+        }
+            result *= n;
+            break;
+            case '/':
+            result /= n;
+            break;
+            case '%':
+            result %= n;
+            break;
+            default:
+                alert('this operator is not available');
+                break;
+        }
+        
+        for(let i=v;i>1;i--)
+        {
+            array[i].value = "";
+            array[i].value = array[i-1].value;
+        }
+        for(let i=v;i>1;i--)
+        {
+            operator[i].value = "";
+            operator[i].value = operator[i-1].value;
+        }
+        
+    }
+
+    
+    document.getElementById('dot').addEventListener("click",function(){
+        array[1].value += document.getElementById('dot').value;
+        
+        
+    });
+    
+    document.getElementById('reminder').addEventListener("click",function(){
+        operator[1].value =document.getElementById('reminder').value;
+        calculate(c,document.getElementById('reminder').value);
+        document.getElementById('total').value = result;
+        array[1].value = "";
+        c++;
+       
+    });
+    document.getElementById('divide').addEventListener("click",function(){
+        operator[1].value =document.getElementById('divide').value;
+        calculate(c,document.getElementById('divide').value);
+        document.getElementById('total').value = result;
+        array[1].value = "";
+        c++;
+       
+    });
+    document.getElementById('btn5').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn5').value;
+       
+    });
+    document.getElementById('btn6').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn6').value;
+       
+    });
+    document.getElementById('btn7').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn7').value;
+       
+    });
+    document.getElementById('multiply').addEventListener("click",function(){
+        operator[1].value =document.getElementById('multiply').value;
+        calculate(c,document.getElementById('multiply').value);
+        document.getElementById('total').value = result;
+        array[1].value = "";
+        c++;
+       
+    });
+    document.getElementById('btn9').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn9').value;
+       
+    });
+    document.getElementById('btn10').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn10').value
+       
+    });
+    document.getElementById('btn11').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn11').value;
+       
+    });
+    document.getElementById('subtract').addEventListener("click",function(){
+        operator[1].value =document.getElementById('subtract').value;
+        calculate(c,document.getElementById('subtract').value);
+        document.getElementById('total').value = result;
+        array[1].value = "";
+        c++;
+    });
+    document.getElementById('btn13').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn13').value;
+       
+    });
+    document.getElementById('btn14').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn14').value;
+       
+    });
+    document.getElementById('btn15').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn15').value;
+       
+    });
+    document.getElementById('add').addEventListener("click",function(){
+        // array[16].value += document.getElementById('btn16').value;
+        operator[1].value = document.getElementById('add').value;
+        calculate(c,document.getElementById('add').value);
+        document.getElementById('total').value = result;
+        array[1].value = "";
+        c++;
+        
+    });
+    document.getElementById('btn16').addEventListener("click",function(){
+        array[1].value += document.getElementById('btn16').value;
+       
+    });
+   
+
+   </script>
+   
+</body>
+</html>
