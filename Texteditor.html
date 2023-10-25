@@ -1,0 +1,268 @@
+<DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     
+    
+    <title> Vikrant's editor </title>
+<style>
+#tA{
+    color: blue;
+    width:360px;
+    height:432px;
+    border:2px solid black;
+    }
+ #nav{
+     display:flex;
+     list-style:none;
+     background-color:black;
+     }
+ #nav>li{
+       padding:20px;
+       margin-left:0;
+       color:white;
+       
+       }
+    #list{
+   
+    list-style:none;
+    background-color:black;
+    
+   
+    
+   
+    }
+    #list>li{
+  
+  
+    padding:20px;
+    color:white;
+    
+    
+    }
+      .on{
+           padding:10px;
+           background-color:black;
+           color:white;
+           border:none;
+        }
+p{
+   margin-left:90%;
+   }
+   #area{
+           background-color:black;
+           border-radius:30px;
+           padding-left:20px;
+           padding-top:20px;
+           color:white;
+           }
+   #read{
+          height:200px;
+          width:353px;
+          border:2px solid black;
+          border-radius:15px;
+          overflow:auto;
+          color:red;
+          font-size:20px;
+          }
+      #name{
+               width:330px;
+               font-size:20px;
+               height:25px;
+          }
+    .close{
+           color:green;
+           margin-left:80%;
+           position:relative;
+           font-size:30px;
+      }
+    .ch{
+         
+         height:60px;
+         width:100px;
+         margin-left:100px;
+         
+         }
+   
+  </style>
+</head>
+<body>
+
+<h1>My text editor</h1>
+<div id = "tA">
+<textarea rows="12" cols="41" placeholder="Type your text here..." id = "area"></textarea>
+Open file:<span id = "rf" style="color:black;"></span>
+<div id="read"></div>
+</div>
+<br>
+<br>
+File name:<input type = "text" id = "name">
+<ul id = "nav">
+
+<li><span onclick="A()">Add</span></li>
+<li><span onclick = "D()">Delete</span></li>
+<li><span onclick = "C()">Change</span></li>
+<li><span onclick = "R()">Read</span></li>
+</ul>
+
+<br>
+<br>
+<ul id="list">
+     
+   </ul>
+   <span onclick="removeFirstChild()" class="close"> Close </span>
+
+
+ 
+ 
+
+<script>
+var FN = new Array();
+var CT = new Array();
+var opf = new Array();
+var opc = new Array();
+var v = "sjskskssndjs aksksndksksje dksn sksnskdhfbendiemd aosjdhdmsoindksis wodididjryyshwkqiebrmdjfdbe sodmdlodisap0qdnufows "
+var i = 0;
+var file;
+var Content;
+var k=0;
+var list = document.getElementById("list");
+      
+      function removeFirstChild() {
+         // select the first child element of the list
+         var firstChild = list.firstElementChild;
+      
+         // remove the first child
+         firstChild.remove();
+        
+        document.getElementById("rf").innerHTML= opf[k-2];
+        document.getElementById("read").innerHTML =opc[k-2];
+         k--;
+      }
+function reset(){
+document.getElementById("name").value=""
+ document.getElementById("area").value=""
+ }
+      
+
+    
+
+function A(){
+     FN[i] = document.getElementById("name").value;
+     CT[i] = document.getElementById("area").value;
+     alert("Save");
+     
+    i++;
+    R();
+    reset();
+    }
+function R(){
+        file = document.getElementById("name").value;
+      let flag =0;
+     for(let r=0;r<=i+1;r++)
+     {
+      if(FN[r] === file)
+      {
+         flag = 1;
+         document.getElementById("rf").innerHTML = file
+          document.getElementById("read").innerHTML = CT[r];
+          opf[k] = FN[r];
+          opc[k] = CT[r];
+          k++;
+          break;
+      }
+    
+     }
+     if(flag == 0)
+     {
+     alert("Not found")
+     return 0;
+     }
+     let span = document.getElementById("list");
+     let s = document.createElement("input");
+    // let textNode =document.createTextNode(file);
+    // s.appendChild(textNode);
+     s.style.backgroundColor = "black";
+     s.style.color = "white";
+     s.value = file;
+     s.style.border = "none";
+     s.style.fontSize = "35px";
+     s.type = "submit";
+     s.addEventListener("click", function() {
+     file = this.value;
+     
+     for(let r=0;r<=i+1;r++)
+     {
+     if(FN[r] === file)
+     {
+     document.getElementById("rf").innerHTML = file
+     document.getElementById("read").innerHTML = CT[r];
+     opf[k] = FN[r];
+     opc[k] = CT[r];
+     k++;
+     break;
+     }
+     }
+     });
+     let br = document.createElement("br");
+     
+    
+    let check = document.createElement("input");
+         check.type =  "checkbox";
+         check.class = "ch";
+         
+       
+         
+         
+     //textNode =document.createTextNode(" complete");
+    // s.appendChild(textNode);
+  
+     
+    
+     
+    
+     span.prepend(check,s,br);
+    // alert("open "+file+" file");
+    
+  }
+function D(){
+      file = document.getElementById("name").value;
+      for(let r=0;r<=i;r++)
+      {
+           if(FN[r]===file)
+           {
+               for(let j=r;j<=i;j++)
+               {
+                   FN[j] = FN[j+1];
+                   CN[j] = CN[j+1];
+                   }
+                  FN[i] = "";
+                  CN[i] = "";
+                  
+              }
+       }
+       i--;
+       alert("Delete "+file+" file");
+       reset();
+  }
+ function C(){
+           file = document.getElementById("name").value;
+           content  =  document.getElementById("area").value;
+           for(let r=0;r<10;r++)
+           {
+               if(FN[r]===file)
+               {
+                  CT[r] += content;
+                  break;
+                }
+  
+            }
+         alert("Change content of "+file)
+         reset();    
+    }   
+</script>
+ 
+</body>
+</html>
